@@ -9,7 +9,7 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
-  lock: Auth0Lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
+  lock: Auth0Lock = new Auth0Lock('{CLIENT_ID}', '{DOMAIN}');
   local: Storage = new Storage(LocalStorage);
   refreshSubscription: any;
   user: Object;
