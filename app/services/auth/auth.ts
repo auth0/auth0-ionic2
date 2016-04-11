@@ -1,6 +1,6 @@
 import {Storage, LocalStorage} from 'ionic-framework/ionic';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
-import {Injectable} from 'angular2/core';
+import {Injectable, NgZone} from 'angular2/core';
 import {Observable} from 'rxjs/Rx';
 
 // Avoid name not found warnings
@@ -13,8 +13,10 @@ export class AuthService {
   local: Storage = new Storage(LocalStorage);
   refreshSubscription: any;
   user: Object;
+  zoneImpl: NgZone;
   
-  constructor(private authHttp: AuthHttp) {
+  constructor(private authHttp: AuthHttp, zone: NgZone) {
+    this.zoneImpl = zone;
     // If there is a profile saved in local storage
     let profile = this.local.get('profile')._result;
     if (profile) {
@@ -43,7 +45,7 @@ export class AuthService {
       this.local.set('profile', JSON.stringify(profile));
       this.local.set('id_token', token);
       this.local.set('refresh_token', refreshToken);
-      this.user = profile;
+      this.zoneImpl.run(() => this.user = profile);
       // Schedule a token refresh
       this.scheduleRefresh();
     });    
@@ -53,7 +55,7 @@ export class AuthService {
     this.local.remove('profile');
     this.local.remove('id_token');
     this.local.remove('refresh_token');
-    this.user = null;
+    this.zoneImpl.run(() => this.user = null);
     // Unschedule the token refresh
     this.unscheduleRefresh();
   }
