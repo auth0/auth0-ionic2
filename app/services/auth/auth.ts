@@ -1,4 +1,4 @@
-import {Storage, LocalStorage} from 'ionic-framework/ionic';
+import {Storage, LocalStorage} from 'ionic-angular';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Injectable, NgZone} from 'angular2/core';
 import {Observable} from 'rxjs/Rx';
@@ -9,7 +9,7 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
-  lock: Auth0Lock = new Auth0Lock('{CLIENT_ID}', '{DOMAIN}');
+  lock = new Auth0Lock('{CLIENT_ID}', '{DOMAIN}');
   local: Storage = new Storage(LocalStorage);
   refreshSubscription: any;
   user: Object;
@@ -17,11 +17,13 @@ export class AuthService {
   
   constructor(private authHttp: AuthHttp, zone: NgZone) {
     this.zoneImpl = zone;
-    // If there is a profile saved in local storage
-    let profile = this.local.get('profile')._result;
-    if (profile) {
+    // Check if there is a profile saved in local storage
+    this.local.get('profile').then(profile => {
       this.user = JSON.parse(profile);
-    }
+    }).catch(error => {
+      console.log(error);
+    });
+    
   }
   
   public authenticated() {
@@ -121,12 +123,17 @@ export class AuthService {
   public getNewJwt() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
-    let refreshToken = this.local.get('refresh_token')._result;
-    this.lock.getClient().refreshToken(refreshToken, (err, delegationRequest) => {
-      if (err) {
-        alert(err);
-      }
-      this.local.set('id_token', delegationRequest.id_token);
+    let refreshToken;
+    this.local.get('refresh_token').then(token => {
+      this.lock.getClient().refreshToken(token, (err, delegationRequest) => {
+        if (err) {
+          alert(err);
+        }
+        this.local.set('id_token', delegationRequest.id_token);
+      });
+    }).catch(error => {
+      console.log(error);
     });
+    
   }
 }

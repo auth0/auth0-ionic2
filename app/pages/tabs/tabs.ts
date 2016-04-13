@@ -1,4 +1,4 @@
-import {Page} from 'ionic-framework/ionic';
+import {Page} from 'ionic-angular';
 import {PingPage} from '../ping/ping';
 import {ProfilePage} from '../profile/profile';
 import {Type} from 'angular2/core';

@@ -1,23 +1,27 @@
 {
   "dependencies": {
-    "angular2": "2.0.0-beta.11",
-    "angular2-jwt": "^0.1.6",
+    "angular2": "2.0.0-beta.13",
+    "angular2-jwt": "^0.1.9",
     "es6-promise": "3.0.2",
     "es6-shim": "^0.35.0",
-    "ionic-framework": "2.0.0-beta.1",
+    "ionic-angular": "2.0.0-beta.4",
+    "ionic-native": "^1.1.0",
     "ionicons": "3.0.0-alpha.3",
     "reflect-metadata": "0.1.2",
-    "rxjs": "^5.0.0-beta.0",
-    "typings": "^0.6.8",
-    "zone.js": "0.6.4"
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.6"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "0.15.10",
-    "strip-sourcemap-loader": "0.0.1",
-    "typescript": "1.7.5"
+    "del": "2.2.0",
+    "gulp": "3.9.1",
+    "gulp-watch": "4.3.5",
+    "ionic-gulp-browserify-typescript": "^1.0.0",
+    "ionic-gulp-fonts-copy": "^1.0.0",
+    "ionic-gulp-html-copy": "^1.0.0",
+    "ionic-gulp-sass-build": "^1.0.0",
+    "ionic-gulp-scripts-copy": "^1.0.0",
+    "run-sequence": "1.1.5"
   },
-  "name": "ionic-auth",
-  "description": "ionic-auth: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
@@ -27,6 +31,13 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
-    "ios"
-  ]
+    "ios",
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
+  ],
+  "name": "auth0-ionic2.dev",
+  "description": "auth0-ionic2.dev: An Ionic project"
 }

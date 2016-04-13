@@ -1,8 +1,8 @@
-import {Page} from 'ionic-framework/ionic';
+import {Page} from 'ionic-angular';
 import {Http} from 'angular2/http';
 import {AuthHttp} from 'angular2-jwt';
 import {AuthService} from '../../services/auth/auth';
-const map = require('rxjs/add/operator/map');
+import 'rxjs/add/operator/map';
 
 @Page({
   templateUrl: 'build/pages/ping/ping.html',
