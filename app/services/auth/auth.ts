@@ -123,7 +123,6 @@ export class AuthService {
   public getNewJwt() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
-    let refreshToken;
     this.local.get('refresh_token').then(token => {
       this.lock.getClient().refreshToken(token, (err, delegationRequest) => {
         if (err) {
