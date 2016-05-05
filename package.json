@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "angular2": "2.0.0-beta.15",
-    "angular2-jwt": "^0.1.9",
+    "angular2-jwt": "0.1.13",
     "es6-promise": "3.0.2",
     "es6-shim": "^0.35.0",
     "ionic-angular": "2.0.0-beta.6",
