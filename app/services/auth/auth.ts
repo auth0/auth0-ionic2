@@ -40,7 +40,8 @@ export class AuthService {
       }
     }, (err, profile, token, accessToken, state, refreshToken) => {
       if (err) {
-        alert(err);
+        alert(err.status);
+        return;
       }
       // If authentication is successful, save the items
       // in local storage
