@@ -1,12 +1,13 @@
 import {App, Platform} from 'ionic-angular';
+import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
-import {provide} from 'angular2/core';
-import {Http} from 'angular2/http'
+import {provide} from '@angular/core';
+import {Http} from '@angular/http'
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {AuthService} from './services/auth/auth';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
-import {Type} from 'angular2/core';
+import {Type} from '@angular/core';
 
 
 @App({
@@ -27,6 +28,7 @@ export class MyApp {
 
   constructor(platform: Platform, private authHttp: AuthHttp, private auth: AuthService) {
     platform.ready().then(() => {
+      StatusBar.styleDefault();
       
       // When the app starts up, there might be a valid
       // token in local storage. If there is, we should

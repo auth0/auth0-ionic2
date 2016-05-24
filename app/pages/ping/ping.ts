@@ -1,5 +1,5 @@
 import {Page} from 'ionic-angular';
-import {Http} from 'angular2/http';
+import {Http} from '@angular/http';
 import {AuthHttp} from 'angular2-jwt';
 import {AuthService} from '../../services/auth/auth';
 import 'rxjs/add/operator/map';

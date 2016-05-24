@@ -1,7 +1,7 @@
 import {Page} from 'ionic-angular';
 import {PingPage} from '../ping/ping';
 import {ProfilePage} from '../profile/profile';
-import {Type} from 'angular2/core';
+import {Type} from '@angular/core';
 
 @Page({
   templateUrl: 'build/pages/tabs/tabs.html'

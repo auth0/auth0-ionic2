@@ -1,6 +1,6 @@
 import {Storage, LocalStorage} from 'ionic-angular';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
-import {Injectable, NgZone} from 'angular2/core';
+import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
 // Avoid name not found warnings
