@@ -9,7 +9,14 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
-  lock = new Auth0Lock('{CLIENT_ID}', '{DOMAIN}');
+  lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
+    auth: {
+      redirect: false,
+      params: {
+        scope: 'openid offline_access',
+      }
+    }
+  });
   local: Storage = new Storage(LocalStorage);
   refreshSubscription: any;
   user: Object;
@@ -23,6 +30,30 @@ export class AuthService {
     }).catch(error => {
       console.log(error);
     });
+
+    this.lock.on('authenticated', authResult => {
+      this.local.set('id_token', authResult.idToken);
+
+      // Fetch profile information
+      this.lock.getProfile(authResult.idToken, (error, profile) => {
+        if (error) {
+          // Handle error
+          alert(error);
+          return;
+        }
+
+        profile.user_metadata = profile.user_metadata || {};
+        this.local.set('profile', JSON.stringify(profile));
+        this.user = profile;
+      });
+
+      this.lock.hide();
+
+      this.local.set('refresh_token', authResult.refreshToken);
+      this.zoneImpl.run(() => this.user = authResult.profile);
+      // Schedule a token refresh
+      this.scheduleRefresh();
+    });
     
   }
   
@@ -33,25 +64,7 @@ export class AuthService {
   
   public login() {
     // Show the Auth0 Lock widget
-    this.lock.show({
-      authParams: {
-        scope: 'openid offline_access',
-        device: 'Mobile device'
-      }
-    }, (err, profile, token, accessToken, state, refreshToken) => {
-      if (err) {
-        alert(err.status);
-        return;
-      }
-      // If authentication is successful, save the items
-      // in local storage
-      this.local.set('profile', JSON.stringify(profile));
-      this.local.set('id_token', token);
-      this.local.set('refresh_token', refreshToken);
-      this.zoneImpl.run(() => this.user = profile);
-      // Schedule a token refresh
-      this.scheduleRefresh();
-    });    
+    this.lock.show();    
   }
   
   public logout() {

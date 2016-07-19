@@ -1,10 +1,10 @@
-import {Page} from 'ionic-angular';
+import {Component} from '@angular/core';
 import {Http} from '@angular/http';
 import {AuthHttp} from 'angular2-jwt';
 import {AuthService} from '../../services/auth/auth';
 import 'rxjs/add/operator/map';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/ping/ping.html',
 })
 export class PingPage {
