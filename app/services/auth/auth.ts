@@ -46,6 +46,9 @@ export class AuthService {
         this.local.set('profile', JSON.stringify(profile));
         this.user = profile;
       });
+
+      this.lock.hide();
+
       this.local.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
       // Schedule a token refresh
