@@ -11,6 +11,7 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
   lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
     auth: {
+      redirect: false,
       params: {
         scope: 'openid offline_access',
       }
@@ -45,6 +46,9 @@ export class AuthService {
         this.local.set('profile', JSON.stringify(profile));
         this.user = profile;
       });
+
+      this.lock.hide();
+
       this.local.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
       // Schedule a token refresh
