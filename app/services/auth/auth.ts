@@ -11,6 +11,7 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
   lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
     auth: {
+      redirect: false,
       params: {
         scope: 'openid offline_access',
       }
