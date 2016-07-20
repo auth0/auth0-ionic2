@@ -32,6 +32,7 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-inappbrowser",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
@@ -42,6 +43,6 @@
       "locator": "ios"
     }
   ],
-  "name": "auth0-ionic2.dev",
-  "description": "auth0-ionic2.dev: An Ionic project"
+  "name": "auth0-ionic2",
+  "description": "auth0-ionic2"
 }

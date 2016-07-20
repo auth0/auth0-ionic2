@@ -5,11 +5,13 @@ import {Observable} from 'rxjs/Rx';
 import {Auth0Vars} from '../../auth0-variables'
 
 // Avoid name not found warnings
+declare var Auth0: any;
 declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
+  auth0 = new Auth0({clientID: Auth0Vars.AUTH0_CLIENT_ID, domain: Auth0Vars.AUTH0_DOMAIN });
   lock = new Auth0Lock(Auth0Vars.AUTH0_CLIENT_ID, Auth0Vars.AUTH0_DOMAIN, {
     auth: {
       redirect: false,
@@ -139,7 +141,7 @@ export class AuthService {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
     this.local.get('refresh_token').then(token => {
-      this.lock.getClient().refreshToken(token, (err, delegationRequest) => {
+      this.auth0.refreshToken(token, (err, delegationRequest) => {
         if (err) {
           alert(err);
         }
