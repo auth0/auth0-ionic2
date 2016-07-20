@@ -2,6 +2,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
+import {Auth0Vars} from '../../auth0-variables'
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -9,7 +10,7 @@ declare var Auth0Lock: any;
 @Injectable()
 export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
-  lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
+  lock = new Auth0Lock(Auth0Vars.AUTH0_CLIENT_ID, Auth0Vars.AUTH0_DOMAIN, {
     auth: {
       redirect: false,
       params: {
