@@ -9,6 +9,10 @@ Clone the repo, then:
 ```bash
 npm install
 ```
+and
+```bash
+ionic plugin add cordova-plugin-inappbrowser cordova-plugin-whitelist
+```
 
 ## Running the App
 
