@@ -1,8 +1,9 @@
-import {Storage, LocalStorage} from 'ionic-angular';
+import {Storage, LocalStorage,  NavController} from 'ionic-angular';
 import {AuthHttp, JwtHelper, tokenNotExpired} from 'angular2-jwt';
 import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Auth0Vars} from '../../auth0-variables'
+import {TabsPage} from '../../pages/tabs/tabs'
 
 // Avoid name not found warnings
 declare var Auth0: any;
@@ -10,6 +11,8 @@ declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
+  private myNavCtrl: NavController;
+
   jwtHelper: JwtHelper = new JwtHelper();
   auth0 = new Auth0({clientID: Auth0Vars.AUTH0_CLIENT_ID, domain: Auth0Vars.AUTH0_DOMAIN });
   lock = new Auth0Lock(Auth0Vars.AUTH0_CLIENT_ID, Auth0Vars.AUTH0_DOMAIN, {
@@ -56,10 +59,20 @@ export class AuthService {
       this.zoneImpl.run(() => this.user = authResult.profile);
       // Schedule a token refresh
       this.scheduleRefresh();
+
+      var self = this.myNavCtrl;
+      setTimeout(function(){
+        self.push(TabsPage);
+      },2000);
+
     });
     
   }
   
+  public setNavCtrl(navCtrl: NavController){
+    this.myNavCtrl = navCtrl;
+  }
+
   public authenticated() {
     // Check if there's an unexpired JWT
     return tokenNotExpired();
