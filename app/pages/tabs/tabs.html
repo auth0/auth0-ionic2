@@ -1,4 +1,8 @@
 <ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Ping" tabIcon="pulse"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Profile" tabIcon="person"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="Ping" tabIcon="pulse"></ion-tab>
 </ion-tabs>
+
+<ion-content padding *ngIf="!auth.authenticated()">
+  <button block (click)="auth.login()">Login</button>
+</ion-content>
